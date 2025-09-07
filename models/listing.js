@@ -7,9 +7,15 @@ const listingSchema= new Schema({
     },
     description:String,
     image: {
-       type: String,
-       default:"https://neilpatel.com/wp-content/uploads/2019/08/google.jpg",
-       set: (v)=>v===""?"https://neilpatel.com/wp-content/uploads/2019/08/google.jpg":v,
+       url: {
+        type: String,
+        default:"https://neilpatel.com/wp-content/uploads/2019/08/google.jpg",
+        set: (v)=>v===""?"https://neilpatel.com/wp-content/uploads/2019/08/google.jpg":v,
+       },
+       filename:{
+        type:String,
+       },
+       
     },
     price:Number,
     location:String,
