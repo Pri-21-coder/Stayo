@@ -8,13 +8,16 @@ const listingSchema= new Schema({
     },
     description:String,
     image: {
-        type: String,
-        default:"https://neilpatel.com/wp-content/uploads/2019/08/google.jpg",
-        set: (v)=>v===""?"https://neilpatel.com/wp-content/uploads/2019/08/google.jpg":v,
+       url:String,
+       filename: String,
     },
     price:Number,
     location:String,
     country: String,
+    category: {
+        type: String,
+        enum: ["Trending", "Rooms", "Iconic Cities", "Mountains", "Castles", "Amazing Pools", "Camping", "Farms", "Arctic"],
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
@@ -25,7 +28,19 @@ const listingSchema= new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+    geometry: {
+        type: {
+            type: String, // Don't do `{ location: { type: String } }`
+            enum: ['Point'], // 'location.type' must be 'Point'
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    }
 });
+
 listingSchema.post("findOneAndDelete", async(listing)=>{
     if(listing){
         await Review.deleteMany({_id: {$in: listing.reviews}});

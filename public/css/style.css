@@ -95,3 +95,8 @@ body {
 .btns {
     display: flex; /* Corrected with a regular space */
 }
+/* Map */
+#map { 
+    height: 400px;
+    width: 60vh; 
+}

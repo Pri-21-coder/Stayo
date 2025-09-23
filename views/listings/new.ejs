@@ -4,7 +4,7 @@
     <div class="col-8 offset-2">
     <br><br>
     <h3>Create a New Listing</h3>
-    <form method="POST" action="/listings" novalidate class="needs-validation">
+    <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
 
          <div class="mb-3">
             <label for="title" class="form-label">Title</label>
@@ -18,11 +18,26 @@
             <div class="invalid-feedback">Please enter a short description</div>
         </div>   
         <div class="mb-3">
-            <label for="image" class="form-label">Image Link</label>
-            <input name="listing[image]" placeholder="Enter image URL/link" type="text" class="form-control">
-    
+            <label for="image" class="form-label">Upload Listing image</label>
+            <input name="listing[image]"  type="file" class="form-control">
         </div>
-    <div class="row">
+        <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select name="listing[category]" class="form-select" required>
+            <option disabled selected value="">Choose a category</option>
+            <option>Trending</option>
+            <option>Rooms</option>
+            <option>Iconic Cities</option>
+            <option>Mountains</option>
+            <option>Castles</option>
+            <option>Amazing Pools</option>
+            <option>Camping</option>
+            <option>Farms</option>
+            <option>Arctic</option>
+        </select>
+        <div class="invalid-feedback">Please select a category.</div>
+      </div>
+        <div class="row">
             <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
             <input name="listing[price]" placeholder="1200" type="number" class="form-control" required>
