@@ -18,6 +18,10 @@ body {
     font-size: 2rem;
     
 }
+.logo img {
+  height: 2.5rem; /* A more proportional height for the navbar */
+  width: auto; 
+}
 .logo{
    height: 20px;
 }
