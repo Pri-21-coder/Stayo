@@ -89,19 +89,16 @@ module.exports.destroyListing=async(req,res)=>{
 }
 // controllers/listings.js
 
+// controllers/listings.js
+
 module.exports.index = async (req, res) => {
-  // Read both category and search query from the URL
   const { category, q } = req.query;
-  
-  // Start with an empty filter object
   const filter = {};
 
-  // If a category is present, add it to the filter
   if (category) {
     filter.category = category;
   }
 
-  // If a search query 'q' is present, add search logic to the filter
   if (q) {
     filter.$or = [
       { title: { $regex: q, $options: "i" } },
@@ -110,14 +107,14 @@ module.exports.index = async (req, res) => {
     ];
   }
 
-  // Find all listings that match the final constructed filter
   const allListings = await Listing.find(filter);
 
-  if (allListings.length === 0) {
-    req.flash("error", "No listings found for your search/filter criteria!");
-    return res.redirect("/listings");
+  // **THE FIX:** If no listings are found, just flash a message.
+  // Do NOT redirect. The page will render with an empty `allListings` array.
+  if (allListings.length === 0 && (q || category)) {
+    req.flash("error", "No listings found that match your search!");
   }
 
-  // Render the index page with the (potentially filtered) listings
+  // Always render the index page.
   res.render("listings/index.ejs", { allListings });
 };
